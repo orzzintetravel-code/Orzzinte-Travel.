@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orizzonti Travel — Viaggi & Tour</title>
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --ink: #1d242b;
+      --muted: #5c6670;
+      --accent: #1f4e5f;
+      --accent-gold: #b88b4a;
+      --border: #e3dfd7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .brand { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.4px; color: var(--accent); }
+    .sub-brand { font-size: 0.8rem; color: var(--muted); }
+    .hero {
+      max-width: 1040px;
+      margin: 36px auto 20px;
+      padding: 0 24px;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    .hero p { color: var(--muted); max-width: 680px; }
+    .grid {
+      max-width: 1040px;
+      margin: 24px auto 60px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+    .card h2 { font-size: 1.15rem; margin-top: 4px; }
+    .card p { font-size: 0.92rem; color: var(--muted); }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .price { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.92; }
+
+    /* Modal */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 50;
+    }
+    .backdrop.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: 14px;
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      border: 1px solid var(--border);
+    }
+    .modal h3 { font-size: 1.2rem; margin-bottom: 6px; }
+    .modal .note { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 0.85rem; margin-bottom: 4px; font-weight: 600; }
+    .field input, .field select {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="brand">Orizzonti Travel</div>
+      <div class="sub-brand">Organizzatore viaggi</div>
+    </div>
+    <div style="font-size:0.85rem;color:var(--muted);">WhatsApp: +39 375 131 9679</div>
+  </header>
+
+  <section class="hero">
+    <h1>Esplora i nostri pacchetti di viaggio</h1>
+    <p>Sfoglia liberamente gli itinerari disponibili. L'accesso e i dati per il pagamento vengono richiesti solo al momento della prenotazione e del pagamento.</p>
+  </section>
+
+  <main class="grid">
+    <article class="card">
+      <div>
+        <div class="tag">Egitto • 8 Giorni / 7 Notti</div>
+        <h2>Black Tour</h2>
+        <p>Cairo, Piramidi di Giza, Grande Museo Egizio, Oasi di Bahariya, Deserto Nero, Montagna di Cristallo, Deserto Bianco, Luxor, Nilo e Mar Rosso con guida in italiano.</p>
+      </div>
+      <div class="price-row">
+        <span class="price">50% acconto / 50% in loco (€)</span>
+        <button class="btn" onclick="openCheckout('Black Tour — Egitto')">Procedi al pagamento</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div>
+        <div class="tag">Egitto • 8 Giorni / 7 Notti</div>
+        <h2>Tour delle Oasi</h2>
+        <p>Cairo, El Alamein, Marsa Matrouh, Oasi di Siwa, Oasi di Bahariya, Deserto Nero e Deserto Bianco con guida archeologica in italiano.</p>
+      </div>
+      <div class="price-row">
+        <span class="price">50% acconto / 50% in loco (€)</span>
+        <button class="btn" onclick="openCheckout('Tour delle Oasi — Egitto')">Procedi al pagamento</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div>
+        <div class="tag">Marocco</div>
+        <h2>Da Marrakech a Merzouga</h2>
+        <p>Scopri Marrakech, Aït Ben Haddou e le dune del deserto di Merzouga con itinerari curati per viaggiatori italiani.</p>
+      </div>
+      <div class="price-row">
+        <span class="price">Preventivo su richiesta</span>
+        <button class="btn" onclick="openCheckout('Itinerario Marocco')">Procedi al pagamento</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <div>
+        <div class="tag">Turchia & Maldive</div>
+        <h2>Turchia & Maldive</h2>
+        <p>Pacchetti selezionati tra cultura e mare cristallino in Turchia e alle Maldive, consultabili senza alcun vincolo iniziale.</p>
+      </div>
+      <div class="price-row">
+        <span class="price">Disponibile</span>
+        <button class="btn" onclick="openCheckout('Pacchetto Turchia / Maldive')">Procedi al pagamento</button>
+      </div>
+    </article>
+  </main>
+
+  <div class="backdrop" id="checkoutModal" aria-hidden="true">
+    <div class="modal">
+      <h3>Accesso & Pagamento</h3>
+      <p class="note" id="selectedPackageLabel">Completa l'accesso per procedere con il pagamento.</p>
+      <form onsubmit="handleSubmit(event)">
+        <div class="field">
+          <label for="email">Email (per l'accesso al pagamento)</label>
+          <input id="email" type="email" required placeholder="nome@esempio.it" />
+        </div>
+        <div class="field">
+          <label for="password">Password o codice di accesso</label>
+          <input id="password" type="password" required placeholder="••••••••" />
+        </div>
+        <div class="field">
+          <label for="method">Metodo di pagamento</label>
+          <select id="method">
+            <option value="stripe">Carta (Stripe)</option>
+            <option value="paypal">PayPal (michele.almanar94@gmail.com)</option>
+            <option value="bonifico">Bonifico bancario</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeCheckout()">Annulla</button>
+          <button type="submit" class="btn">Continua al pagamento</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Orizzonti Travel • Contatti: almanarahmed376@gmail.com • WhatsApp: +39 375 131 9679
+  </footer>
+
+  <script>
+    const modal = document.getElementById('checkoutModal');
+    const label = document.getElementById('selectedPackageLabel');
+
+    function openCheckout(pkgName) {
+      label.textContent = 'Pacchetto selezionato: ' + pkgName + ' — Accedi per proseguire al pagamento.';
+      modal.classList.add('open');
+    }
+
+    function closeCheckout() {
+      modal.classList.remove('open');
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('Accesso verificato. Ora puoi completare il pagamento per il pacchetto scelto.');
+      closeCheckout();
+    }
+  </script>
+</body>
+                                                           </html>
+                                                           
